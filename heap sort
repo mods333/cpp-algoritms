@@ -1,0 +1,67 @@
+#include<iostream>
+
+using namespace std;
+
+void heapify(int a[], int size, int i){
+	int j = 2 * i;
+	int temp = a[i];
+
+	while (j <= size){
+		if (a[j] < a[j + 1] && j < size)
+			j = j + 1;
+		if (temp>a[j])
+			break;
+		else if (temp <= a[j]){
+			a[j / 2] = a[j];
+			j = 2 * j;
+		}
+	}
+
+	a[j/2] = temp;
+}
+
+void build_maxheap(int a[], int size){
+	int i;
+
+	for (i = size / 2; i >= 1; i--)
+		heapify(a, size, i);
+}
+
+void heapsort(int a[], int size){
+	int i;
+	int temp;
+
+	for (i = size; i >= 2; i--){
+		temp = a[i];
+		a[i] = a[1];
+		a[1] = temp;
+		heapify(a, i-1, 1);
+	}
+
+	std::cout << std::endl << " The sorted array is : " << std::endl;
+
+	for (i = 1; i <= size; i++)
+		std::cout << a[i] << " , ";
+
+	getchar();
+	getchar();
+
+}
+
+
+void main(){
+	int a[20];
+	int size;
+	int i;
+
+	std::cout << "\n Enter the num of elements in the array : ";
+	std::cin >> size;
+
+	std::cout << "\n Enter the elements of the array : " << std::endl;
+	for (i = 1; i <= size; i++)
+		std::cin >> a[i];
+
+	build_maxheap(a, size);
+	heapsort(a, size);
+
+}
